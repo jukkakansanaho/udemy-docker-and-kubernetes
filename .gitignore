@@ -1,0 +1,9 @@
+# Python
+__pycache__/*
+*.pyc
+
+# Mac exclusion
+.DS_Store
+
+# Offline stuff
+commands.py
