@@ -1,0 +1,10 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vazarely/udemy-docker-and-kubernetes -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true vazarely/udemy-docker-and-kubernetes npm run test
