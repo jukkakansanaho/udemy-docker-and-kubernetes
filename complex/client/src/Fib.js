@@ -1,4 +1,4 @@
-import react, { Component } from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 class Fib extends Component {
@@ -13,13 +13,13 @@ class Fib extends Component {
     this.fetchIndexes();
   }
 
-  async fetcValues() {
-    const values = axios.get('/api/values/current');
+  async fetchValues() {
+    const values = await axios.get('/api/values/current');
     this.setState({ values: values.data });
   }
 
   async fetchIndexes() {
-    const seenindexes = await axios.get('/api/values/all');
+    const seenIndexes = await axios.get('/api/values/all');
     this.setState({
       seenIndexes: seenIndexes.data,
     });
@@ -49,10 +49,10 @@ class Fib extends Component {
       );
     }
 
-    return entires;
+    return entries;
   }
 
-  reender() {
+  render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -67,7 +67,7 @@ class Fib extends Component {
         <h3>Indexes I have seen:</h3>
         {this.renderSeenIndexes()}
 
-        <h3>Calculated values:</h3>
+        <h3>Calculated Values:</h3>
         {this.renderValues()}
       </div>
     );
