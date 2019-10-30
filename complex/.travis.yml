@@ -1,0 +1,25 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - cd complex
+  - docker build -t vazarely/multi-client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true vazarely/multi-client-test npm run test
+
+after_success:
+  - docker build -t vazarely/multi-client ./client
+  - docker build -t vazarely/multi-nginx ./nginx
+  - docker build -t vazarely/multi-server ./server
+  - docker build -t vazarely/multi-worker ./worker
+
+  # Login to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to Docker Hub
+  - docker push vazarely/multi-client
+  - docker push vazarely/multi-nginx
+  - docker push vazarely/multi-server
+  - docker push vazarely/multi-worker
