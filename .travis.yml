@@ -23,3 +23,17 @@ after_success:
   - docker push vazarely/multi-nginx
   - docker push vazarely/multi-server
   - docker push vazarely/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: udemy-multi-docker
+  env: UdemyMultiDocker-env
+  bucket_name: elasticbeanstalk-eu-west-1-011946392048
+  bucket_path: udemy-multi-docker
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
